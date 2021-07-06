@@ -66,10 +66,14 @@ fontLoader.load('./fonts/helvetiker_bold.typeface.json', (font) => {
   const light = new THREE.AmbientLight(0x404040, 4.5); // soft white light
   scene.add(light);
 
+  // Instantiate the draco loader for compressed files
+  const dracoLoader = new DRACOLoader();
+  dracoLoader.setDecoderPath('/draco/');
   // !! Import blender donut model
   const gltfLoader = new GLTFLoader();
 
   for (let i = 0; i < 200; i++) {
+    gltfLoader.setDRACOLoader(dracoLoader);
     gltfLoader.load('models/low-poly0donut.gltf', (gltf) => {
       const children = [...gltf.scene.children];
 
